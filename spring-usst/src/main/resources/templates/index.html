@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>上海理工大学基金会</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- styles -->
+    <link th:href="@{assets/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{assets/css/bootstrap-responsive.css}" rel="stylesheet">
+    <link th:href="@{assets/css/docs.css}" rel="stylesheet">
+    <link th:href="@{assets/js/google-code-prettify/prettify.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{assets/css/prettyPhoto.css}" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
+
+    <!-- fav and touch icons -->
+
+    <style>
+        .container {
+            width: 1200px;
+            margin: 0 auto;
+        }
+
+        #myEcharts {
+            width: 500px;
+            height: 300px;
+            border: solid 1px red;
+            margin: 0 auto;
+        }
+    </style>
+    <script src="https://www.echartsjs.com/examples/vendors/jquery/jquery.js"></script>
+    <!-- 引入 echarts.js -->
+    <script src="https://www.echartsjs.com/examples/vendors/echarts/echarts.min.js?_v_=1578305236132"></script>
+    <!--引入中国的地图数据js文件，引入后会自动注册地图名字和数据-->
+    <script src="https://www.echartsjs.com/examples/vendors/echarts/map/js/china.js?_v_=1578305236132"></script>
+
+
+    <!--/GOOGLE FONTS-->
+    <style type="text/css">
+        #box1{width:260px;height:150px;margin:0 auto;border:3px solid #999;overflow: auto}
+        #box{width:260px;height:150px;margin:0 auto;border:3px solid #999;overflow: auto}
+        ul[id = "con1"]{padding:0;margin:0;list-style: none;overflow: hidden}
+        ul[id = "con1"] li[type="li1"]{height:24px;line-height: 24px;padding-left:10px;border-bottom:dashed 1px #999;}
+        ul[id = "con2"]{padding:0;margin:0;list-style: none;overflow: hidden}
+        ul[id = "con2"] li[type="li1"]{height:24px;line-height: 24px;padding-left:10px;border-bottom:dashed 1px #999;}
+        ul[id = "con3"]{padding:0;margin:0;list-style: none;overflow: hidden}
+        ul[id = "con3"] li[type="li2"]{height:24px;line-height: 24px;padding-left:10px;border-bottom:dashed 1px #999;}
+        ul[id = "con4"]{padding:0;margin:0;list-style: none;overflow: hidden}
+        ul[id = "con4"] li[type="li2"]{height:24px;line-height: 24px;padding-left:10px;border-bottom:dashed 1px #999;}
+        a{text-decoration: none;color:#000;}
+        a:hover{color: #ff0000
+        }
+        .rt{float:right; font-size: 14px; width:100px;}
+    </style>
+
+</head>
+<body>
+<!--TOP-->
+<div class="top_line"></div>
+<div class="panel hidden-phone">
+    <div id="map">
+    </div>
+</div>
+<!--/TOP-->
+
+
+<!--HEADER-->
+<header>
+    <div class="container">
+
+        <div class="row">
+            <div class="span4 logo">
+                <img src="assets/img/logo.png" alt="logo" style="margin-bottom:7px; margin-top:7px;" />
+            </div>
+            <div class="span8">
+
+                <nav id="main-nav" >
+                    <ul id="menu" >
+                        <li class="current"><a th:href="@{/toindex}">首页</a></li>
+                        <li><a th:href="@{/toAbout}">关于我们</a></li>
+                        <li><a th:href="@{/toSource}">数据来源</a></li>
+                        <li><a th:href="@{/toRegister}">注册</a></li>
+                        <li><a th:if="${session.username}==null"   th:href="@{/tologin}">登录</a></li>
+                        <li><a th:if="${session.username}!=null" th:href="@{/toOut}">退出</a></li>
+                        <li><a th:if="${session.username}!=null" th:text="${session.username}"></a></li>
+                        <li><a th:if="${session.username}==null" th:text="游客模式"></a></li>
+                    </ul>
+                </nav><!-- end #main-nav -->
+            </div>
+        </div>
+    </div>
+</header>
+<!--/HEADER-->
+<!--FEATURES AREA-->
+
+<div class="slider_area">
+    <div class="container">
+        <div class="row">
+            <div class="span12 mainslider">
+                <div class="flexslider">
+                    <ul class="slides">
+                        <li>
+                            <img src="assets/img/jijinhui2.jpg" />
+                        </li>
+                        <li>
+                            <img src="assets/img/jijinhui3.jpg" />
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--FEATURES AREA-->
+
+<!--MAIN CONTENT AREA-->
+<div class="container portfolio">
+    <div style="margin-top:65px;">
+        <div class="row">
+            <div class="span4">
+                <div class="modal hade fade" id="myModal">
+                    <div class="modal-header">
+                        <a class="close" data-dismiss="modal">x</a>
+                        <h3>Modal header</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>One fine body...</p>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+                <div>
+                    <h2><span class="colored"><strong>///</strong></span>关注<span class="undercolored">新冠疫情实况</span></h2>
+                    <hr class="dash">
+                    <div>
+                        <p><h4>新型冠状病毒肺炎（Corona Virus Disease 2019，COVID-19），简称“新冠肺炎”，世界卫生组织命名为“2019冠状病毒病”，是指2019新型冠状病毒感染导致的肺炎。2019年12月以来，湖北省武汉市部分医院陆续发现了多例有华南海鲜市场暴露史的不明原因肺炎病例，现已证实为2019新型冠状病毒感染引起的急性呼吸道传染病。</h4></p>
+                        <hr class="dash">
+                        <p><em><h3>明媚的阳光终会照亮这片土地，</h3></em></p>
+                        <p><em><h3>樱花会再次的盛开，</h3></em></p>
+                        <p><em><h3>过早的人们依旧吃着热干面。</h3></em></p>
+                        <p><em><h3>街道会再次人声鼎沸，</h3></em></p>
+                        <p><em><h3>我们会摘下口罩，</h3></em></p>
+                        <p><em><h3>去自己想去的地方，</h3></em></p>
+                        <p><em><h3>见想见的人。</h3></em></p>
+                    </div>
+                    <hr class="dash">
+
+                </div>
+            </div>
+            <div class="span4 block">
+                <div class="view view-first">
+                    <a href="assets/img/gal/aaa.png" rel="prettyPhoto"><img src="assets/img/gal/aaa.png" alt="" /></a>
+                    <div class="mask">
+                        <a href="assets/img/gal/aaa.png" rel="prettyPhoto" class="info"><img src="assets/img/plus.png" alt="" /></a>
+                        <a th:href="@{toDonation}" class="link"><img src="assets/img/link.png" alt="Visit link" /></a>
+                    </div>
+                </div>
+                <br/>
+                <h4><i class="icon-picture"></i> <a th:href="@{toDonation}">爱心捐赠入口</a></h4>
+                <div class="description">
+                    <p class="clo">信有春风通国祚，愿从滴水济时艰。</p>
+                </div>
+            </div>
+            <div class="span4 block">
+                <h2><span class="colored"><strong>///</strong></span> 爱心捐赠公示
+                    <hr class="dash">
+                    <h4  align = "middle">
+                        <span class="nav-small-left" >捐赠人</span>
+                        <span class="nav-small-middle" >捐赠金额</span>
+                        <span class="nav-small-right" > 捐赠项目</span>
+                    </h4>
+                    <br/>
+                    <div id="box" style="box-shadow:0px 0px 10px 10px #CECED1;">
+                        <ul id="con1" onMouseOut="Up()" onMouseOver="Stop()">
+                            <li type="li1"><a href="#">贾子靖  10w  疫情</a> </li>
+                            <li type="li1"><a href="#">hhh 10w  疫情</a> </li>
+                            <li type="li1"><a href="#">zp  10w  疫情</a> </li>
+                            <li type="li1"><a href="#">zx  10w  疫情</a> </li>
+                            <li type="li1"><a href="#">jzj  10w  疫情</a> </li>
+                            <li type="li1"><a href="#">zzr  10w  疫情</a> </li>
+                            <li type="li1"><a href="#">朱鹏  10w  疫情</a> </li>
+                            <li type="li1"><a href="#">翟中瑞  10w  疫情</a> </li>
+                            <li type="li1"><a href="#">郑翔  10w  疫情</a> </li>
+                        </ul>
+                        <ul id="con2"></ul>
+
+                    </div>
+                    <br/>
+                    <h4> <a th:href="@{allDonation}">点击查看更多捐赠信息</a></h4>
+                    <div class="description">
+                        <p class="clo">没有一个冬天不会过去，没有一个春天不会到来</p>
+                    </div>
+            </div>
+            <div class="span4 block">
+                <h2><span class="colored"><strong>///</strong></span> 资金流向公示
+                    <hr class="dash">
+                    <h4  align = "middle">
+                        <span class="nav-small-left" >捐赠周期</span>
+                        <span class="nav-small-middle">资金总额</span>
+                        <span class="nav-small-right" >资金流向</span>
+                    </h4>
+                    <br/>
+                    <div id="box1" style="box-shadow:0px 0px 10px 10px #CECED1;">
+                        <ul id="con3" onMouseOut="Up2()" onMouseOver="Stop2()">
+                            <li type="li2"><a href="#">第一周  14W  日月潭</a> </li>
+                            <li type="li2"><a href="#">第一周  20w  光谷</a> </li>
+                            <li type="li2"><a href="#">第一周  103w  同济</a> </li>
+                            <li type="li2"><a href="#">第二周  7w  光谷</a> </li>
+                            <li type="li2"><a href="#">第二周  104w  日月潭</a> </li>
+                            <li type="li2"><a href="#">第二周  130w  中南</a> </li>
+                            <li type="li2"><a href="#">第三周  41w  同济</a> </li>
+                            <li type="li2"><a href="#">第三周  15w  日月潭</a> </li>
+                            <li type="li2"><a href="#">第三周  11w  日月潭</a> </li>
+                            <li type="li2"><a href="#">第四周  13w  光谷</a> </li>
+                            <li type="li2"><a href="#">第四周  18w  中南</a> </li>
+                        </ul>
+                        <ul id="con4"></ul>
+
+                    </div>
+                    <br/>
+                    <h4> <a th:href="@{allMoney}">更多详细资金流向信息</a></h4>
+                    <div class="description">
+                        <p class="clo"> 山川异域，风月同天。</p>
+                    </div>
+            </div>
+
+        </div>
+
+    </div>
+    <hr>
+    <div style="margin-top:65px;">
+        <div class="row">
+            <div class="span6">
+                <h2><span class="colored"><strong>///</strong></span><span class="undercolored"> 单个区块结构</span></h2>
+                <img src="assets/img/gif1.gif">
+            </div>
+            <div class="span6">
+                <h2><span class="colored"><strong>///</strong></span><span class="undercolored"> 区块链结构</span></h2>
+                <img src="assets/img/gif2.gif">
+            </div>
+        </div>
+    </div>
+
+
+    <hr>
+    <div style="margin-top:65px;">
+        <div class="row">
+            <div class="span6">
+                <h2><span class="colored"><strong>///</strong></span> 中国 <span class="undercolored">疫情地图</span></h2>
+                <div>
+                    <h3>累计确诊人数如下：</h3>
+                    <!--为echarts准备一个dom容器-->
+                    <div id="myEcharts"></div>
+                </div>
+            </div>
+            <script>
+                //初始化echarts实例
+                var myChart = echarts.init(document.getElementById('myEcharts'));
+                // 指定图表的配置项和数据
+                option = {
+                    title: {
+                        text: '中国疫情图',
+                        left: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'item'
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        left: 'left',
+                        data: ['中国疫情图']
+                    },
+                    visualMap: {
+                        type: 'piecewise',
+                        pieces: [
+                            { min: 1000, max: 1000000, label: '大于等于1000人', color: '#b93e26' },
+                            { min: 500, max: 999, label: '确诊500-999人', color: '#fe5e3b' },
+                            { min: 100, max: 499, label: '确诊100-499人', color: '#ff7c20' },
+                            { min: 10, max: 99, label: '确诊10-99人', color: '#ffc24b' },
+                            { min: 1, max: 9, label: '确诊1-9人', color: '#fff7ba' },
+                        ],
+                        color: ['#E0022B', '#E09107', '#A3E00B']
+                    },
+                    toolbox: {
+                        show: true,
+                        orient: 'vertical',
+                        left: 'right',
+                        top: 'center',
+                        feature: {
+                            mark: { show: true },
+                            dataView: { show: true, readOnly: false },
+                            restore: { show: true },
+                            saveAsImage: { show: true }
+                        }
+                    },
+                    roamController: {
+                        show: true,
+                        left: 'right',
+                        mapTypeControl: {
+                            'china': true
+                        }
+                    },
+                    series: [
+                        {
+                            name: '确诊数',
+                            type: 'map',
+                            mapType: 'china',
+                            roam: false,
+                            label: {
+                                show: true,
+                                color: 'rgb(249, 249, 249)'
+                            },
+                            data: []
+                        }
+                    ]
+                };
+
+                //使用指定的配置项和数据显示图表
+                myChart.setOption(option);
+
+                //获取数据
+                function getData() {
+                    $.ajax({
+                        url: "https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5",
+                        dataType: "jsonp",
+                        success: function (data) {
+                            //  console.log(data.data)
+                            var res = data.data || "";
+                            res = JSON.parse(res);
+                            var newArr = [];
+                            //newArr的数据格式为：
+                            // [{
+                            //   name: '北京11',
+                            //   value: 212
+                            // }, {
+                            //   name: '天津',
+                            //   value: 60
+                            // }]
+                            if (res) {
+                                //获取到各个省份的数据
+                                var province = res.areaTree[0].children;
+                                for (var i = 0; i < province.length; i++) {
+                                    var json = {
+                                        name: province[i].name,
+                                        value: province[i].total.confirm
+                                    }
+                                    newArr.push(json)
+                                }
+                                console.log(newArr)
+                                console.log(JSON.stringify(newArr))
+                                //使用指定的配置项和数据显示图表
+                                myChart.setOption({
+                                    series: [
+                                        {
+                                            name: '确诊数',
+                                            type: 'map',
+                                            mapType: 'china',
+                                            roam: false,
+                                            label: {
+                                                show: true,
+                                                color: 'rgb(249, 249, 249)'
+                                            },
+                                            data: newArr
+                                        }
+                                    ]
+                                });
+                            }
+                        }
+
+                    })
+                }
+                getData();
+
+            </script>
+            <div class="span6"style="">
+                <h2><span class="colored"><strong>///</strong></span> 资金流向 <span class="undercolored">桑基图</span></h2>
+
+                <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+                <div id="main" style="width: 600px;height:400px;"></div>
+                <script type="text/javascript">
+                    // 基于准备好的dom，初始化echarts实例
+                    var myChart1 = echarts.init(document.getElementById('main'));
+
+                    // 指定图表的配置项和数据
+                    var option = {
+                        series: {
+                            type: 'sankey',
+                            layout: 'none',
+                            focusNodeAdjacency: 'allEdges',
+                            data: [{
+                                name: '武汉光谷医院'
+                            }, {
+                                name: '武汉同济医院'
+                            }, {
+                                name: '武汉日月坛医院'
+                            }, {
+                                name: '武汉大学中南医院'
+                            }, {
+                                name: '0.5万'
+                            }, {
+                                name: '0.7万'
+                            }, {
+                                name: '1.2万'
+                            }, {
+                                name: '1.5万'
+                            }, {
+                                name: '10万'
+                            }, {
+                                name: '12万'
+                            }, {
+                                name: '14万'
+                            }, {
+                                name: '20万'
+                            }, {
+                                name: '18万'
+                            }, {
+                                name: '4万'
+                            }, {
+                                name: '5万'
+                            }, {
+                                name: '6万'
+                            }],
+                            links: [{
+                                source: '武汉光谷医院',
+                                target: '0.7万',
+                                value: 0.7
+                            }, {
+                                source: '武汉光谷医院',
+                                target: '10万',
+                                value: 5
+                            }, {
+                                source: '武汉光谷医院',
+                                target: '18万',
+                                value: 3
+                            }, {
+                                source: '武汉光谷医院',
+                                target: '20万',
+                                value: 5
+                            }, {
+                                source: '武汉光谷医院',
+                                target: '12万',
+                                value: 5
+                            }, {
+                                source: '武汉光谷医院',
+                                target: '14万',
+                                value: 5
+                            }, {
+                                source: '武汉大学中南医院',
+                                target: '1.2万',
+                                value: 3
+                            }, {
+                                source: '武汉大学中南医院',
+                                target: '12万',
+                                value: 3
+                            }, {
+                                source: '武汉大学中南医院',
+                                target: '18万',
+                                value: 8
+                            }, {
+                                source: '武汉大学中南医院',
+                                target: '6万',
+                                value: 3
+                            }, {
+                                source: '武汉日月坛医院',
+                                target: '0.5万',
+                                value: 1
+                            }, {
+                                source: '武汉日月坛医院',
+                                target: '6万',
+                                value: 3
+                            }, {
+                                source: '武汉日月坛医院',
+                                target: '20万',
+                                value: 6
+                            }, {
+                                source: '武汉日月坛医院',
+                                target: '14万',
+                                value: 3
+                            }, {
+                                source: '武汉日月坛医院',
+                                target: '1.5万',
+                                value: 1
+                            }, {
+                                source: '武汉日月坛医院',
+                                target: '0.5万',
+                                value: 1
+                            }, {
+                                source: '武汉日月坛医院',
+                                target: '18万',
+                                value: 1
+                            }, {
+                                source: '武汉日月坛医院',
+                                target: '4万',
+                                value: 3
+                            }, {
+                                source: '武汉同济医院',
+                                target: '14万',
+                                value: 4
+                            }, {
+                                source: '武汉同济医院',
+                                target: '20万',
+                                value: 7
+                            }, {
+                                source: '武汉同济医院',
+                                target: '18万',
+                                value: 3
+                            }, {
+                                source: '武汉同济医院',
+                                target: '12万',
+                                value: 3
+                            }, {
+                                source: '武汉同济医院',
+                                target: '18万',
+                                value: 3
+                            }, {
+                                source: '武汉同济医院',
+                                target: '10万',
+                                value: 3
+                            }, {
+                                source: '武汉同济医院',
+                                target: '5万',
+                                value: 4
+                            }]
+                        }
+                    };
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart1.setOption(option);
+                </script>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<!--/MAIN CONTENT AREA-->
+
+<!--FOOTER-->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                <img src="assets/img/logo.png" alt="logo" style="margin-bottom:7px; margin-top:7px;" />
+                <hr class="visible-phone">
+            </div>
+            <div class="span3">
+                <h5><span class="colored">///</span> 上海理工大学基金会</h5>
+                <p>帮助所有被疫情所困的人民，传播慈善公益文化</p>
+                <hr class="visible-phone">
+            </div>
+            <div class="span3 flickr">
+                <h5><span class="colored">///</span> 联系我们</h5>
+                <span><strong class="colored"> 地址:</strong> 上海市杨浦区军工路516号上海理工大学</span>
+                <hr class=" hidden-phone"><br class="visible-phone">
+                <span><strong class="colored"> 电话:</strong> 8888-888888</span>
+                <span><strong class="colored"> 邮政编码:</strong> 2000093</span>
+                <hr class="visible-phone">
+            </div>
+            <div class="span3 flickr">
+
+                <span><strong class="colored"> @鸡腿大王工作室</strong> </span>
+                <hr class=" hidden-phone"><br class="visible-phone">
+                <span><img src="assets/img/jitui.png" /></span>
+
+                <hr class="visible-phone">
+            </div>
+        </div>
+    </div>
+</footer>
+<!--/FOOTER-->
+
+<!--BOTTOM LINE-->
+<div class="bottom-block">
+    <div class="container">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="span6">
+                        <span>上海理工大学</span>
+                    </div>
+                    <div class="span6">
+                        <span class="pull-right visible-desktop"><span class="undercolored"><a href="#">主页</a></span> / <span class="undercolored"><a href="#">关于我们</a></span> / <span class="undercolored"><a href="#">数据来源</a></span> / <span class="undercolored"><a href="#">注册</a></span> / <span class="undercolored"><a href="#">登录</a></span> </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/BOTTOM LINE-->
+
+
+
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="assets/js/flexible.js"></script>
+<script src="assets/js/jquery.js/jquery.min.js"></script>
+<script src="assets/js/echarts.js"></script>
+<script src="assets/js/world.js"></script>
+<script src="assets/js/nameMap.js"></script>
+<script src="assets/js/index.js"></script>
+
+<script src="assets/js/jquery.js"></script>
+<script src="assets/js/google-code-prettify/prettify.js"></script>
+<script src="assets/js/bootstrap-transition.js"></script>
+<script src="assets/js/bootstrap-alert.js"></script>
+<script src="assets/js/bootstrap-modal.js"></script>
+<script src="assets/js/bootstrap-dropdown.js"></script>
+<script src="assets/js/bootstrap-scrollspy.js"></script>
+<script src="assets/js/bootstrap-tab.js"></script>
+<script src="assets/js/bootstrap-tooltip.js"></script>
+<script src="assets/js/bootstrap-popover.js"></script>
+<script src="assets/js/bootstrap-button.js"></script>
+<script src="assets/js/bootstrap-collapse.js"></script>
+<script src="assets/js/bootstrap-carousel.js"></script>
+<script src="assets/js/bootstrap-typeahead.js"></script>
+<script src="assets/js/jquery.easing.1.3.js"></script>
+<script src="assets/js/jquery.slabtext.min.js"></script>
+<script src="assets/js/jquery.flexslider-min.js"></script>
+<script src="assets/js/superfish-menu/superfish.js"></script>
+<script src="assets/js/plugin.js"></script>
+<script src="assets/js/jquery.prettyPhoto.js"></script>
+<script src="assets/js/twitter.js"></script>
+<script src="http//maps.google.com/maps/api/js?sensor=false"></script>
+<script src="assets/js/jquery.gmap.min.js"></script>
+<script src="assets/js/jquery.preloader.js"></script>
+<script src="assets/js/custom.js"></script>
+<script type="text/javascript">var runFancy = true;</script>
+<!--[if IE]>
+<script type="text/javascript">
+    runFancy = false;
+</script>
+<![endif]-->
+<script type="text/javascript">
+    if (runFancy) {
+        jQuery.noConflict()(function($){
+            $(".view").preloader();
+            $(".flexslider").preloader();
+        });
+    }
+
+    var box=document.getElementById("box");
+    var box1=document.getElementById("box1");
+    var con1=document.getElementById("con1");
+    var con2=document.getElementById("con2");
+    var con3=document.getElementById("con3");
+    var con4=document.getElementById("con4");
+    var s=document.getElementsByTagName("a");
+    var speed=50;
+    con2.innerHTML=con1.innerHTML;
+    con4.innerHTML=con3.innerHTML;
+    function  ScrollUp(){
+        if( box.scrollTop>=con1.scrollHeight){
+            box.scrollTop=0;
+        }else
+            box.scrollTop++;
+    }
+    function  ScrollUp2(){
+        if( box1.scrollTop>=con3.scrollHeight){
+            box1.scrollTop=0;
+        }else
+            box1.scrollTop++;
+    }
+    var i=setInterval("ScrollUp()",speed);
+    var j=setInterval("ScrollUp2()",speed);
+    function Stop(){
+        clearInterval(i);
+    }
+    function Up(){
+        i=setInterval("ScrollUp()",speed);
+    }
+    function Stop2(){
+        clearInterval(j);
+    }
+    function Up2(){
+        j=setInterval("ScrollUp2()",speed);
+    }
+
+
+</script>
+
+
+
+</body>
+</html>

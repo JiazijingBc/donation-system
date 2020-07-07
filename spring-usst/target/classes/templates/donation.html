@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>青山一道同云雨，明月何曾是两乡--感谢捐赠</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- styles -->
+
+    <link th:href="@{assets/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{assets/css/bootstrap-responsive.css}" rel="stylesheet">
+    <link th:href="@{assets/css/docs.css}" rel="stylesheet">
+    <link th:href="@{assets/js/google-code-prettify/prettify.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{assets/css/prettyPhoto.css}" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
+
+    <style type="text/css">
+        .rt{float:right; font-size: 14px; width:100px;}
+    </style>
+</head>
+<body>
+<!--TOP-->
+<div class="top_line"></div>
+<div class="panel hidden-phone">
+    <div id="map">
+    </div>
+</div>
+<!--/TOP-->
+<!--HEADER-->
+<header>
+    <div class="container">
+
+        <div class="row">
+            <div class="span4 logo">
+                <img src="assets/img/logo.png" alt="logo" style="margin-bottom:7px; margin-top:7px;" />
+            </div>
+            <div class="span8">
+
+                <nav id="main-nav" >
+                    <ul id="menu" >
+                        <li><a th:href="@{/toindex}">首页</a></li>
+                        <li><a th:href="@{/toAbout}">关于我们</a></li>
+                        <li><a th:href="@{/toSource}">数据来源</a></li>
+                        <li><a th:href="@{/toRegister}">注册</a></li>
+                        <li><a th:if="${session.username}==null"   th:href="@{/tologin}">登录</a></li>
+                        <li><a th:if="${session.username}!=null" th:href="@{/toOut}">退出</a></li>
+                        <li><a th:if="${session.username}!=null" th:text="${session.username}"></a></li>
+                        <li><a th:if="${session.username}==null" th:text="游客模式"></a></li>
+
+                    </ul>
+                </nav><!-- end #main-nav -->
+            </div>
+        </div>
+    </div>
+</header>
+<!--/HEADER-->
+
+<!--WELCOME AREA-->
+<div class="gray_bg">
+    <div class="container">
+        <div class="row welcome_inner">
+            <div class="span12">
+                <h1><span class="colored">///</span> 感谢捐赠</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/WELCOME AREA-->
+<!--MAIN CONTENT AREA-->
+<div class="container inner_content">
+    <section>
+        <div class="row">
+            <div class="span5">
+                <img src="assets/img/gal/kangyi1.jpg" alt="" />
+            </div>
+
+            <div class="span7">
+                <div class="row">
+                    <div class="span7">
+                        <h2><span class="colored"><strong>///</strong></span>青山一道同云雨，明月何曾是两乡</h2>
+                        <hr class="dash">
+                        <div class="span4 portfolio-description"  style="line-height: 100px;">
+                            <h2><span class="label" style="line-height: 100px;">爱心捐赠</span></h2>
+                            <form th:action="@{/donation}" method="post">
+
+                                <ul>
+
+<!--                                    <li><span style="text-align: center ;font-size: 25px;font-weight: bold">用户名或密码错误</span></li>-->
+<!--                                    <li><span style="text-align: center ;font-size: 25px;font-weight: bold">捐赠成功</span></li>-->
+                                    <li><p th:text="${msg}"></p></li>
+                                    <li><input name="uname" type="text" placeholder= "输入用户名" class="loginuser"  onclick="JavaScript:this.value=''" required/></li>
+                                    <li><input name="paymentpwd" type="password" class="loginpwd" placeholder="输入支付密码" onclick="JavaScript:this.value=''" required/></li>
+                                    <li><input name="count" type="text" placeholder= "捐款金额" class="loginuser"  onclick="JavaScript:this.value=''" required/></li>
+                                    <li><input name="" type="submit" class="loginbtn" value="捐献"/></li>
+                                </ul>
+                            </form>
+                        </div>
+                        <hr class="dash">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="row">
+        <div class="span12">
+            <hr style="margin-bottom:0px;">
+        </div>
+    </div>
+
+</div>
+
+
+<!--/MAIN CONTENT AREA-->
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                <img src="assets/img/logo.png" alt="logo" style="margin-bottom:7px; margin-top:7px;" />
+                <hr class="visible-phone">
+            </div>
+            <div class="span3">
+                <h5><span class="colored">///</span> 上海理工大学基金会</h5>
+                <p>帮助所有被疫情所困的人民，传播慈善公益文化</p>
+                <hr class="visible-phone">
+            </div>
+            <div class="span3 flickr">
+                <h5><span class="colored">///</span> 联系我们</h5>
+                <span><strong class="colored"> 地址:</strong> 上海市杨浦区军工路516号上海理工大学</span>
+                <hr class=" hidden-phone"><br class="visible-phone">
+                <span><strong class="colored"> 电话:</strong> 8888-888888</span>
+                <span><strong class="colored"> 邮政编码:</strong> 2000093</span>
+                <hr class="visible-phone">
+            </div>
+            <div class="span3 flickr">
+
+                <span><strong class="colored"> @鸡腿大王工作室</strong> </span>
+                <hr class=" hidden-phone"><br class="visible-phone">
+                <span><img src="assets/img/jitui.png" /></span>
+
+                <hr class="visible-phone">
+            </div>
+        </div>
+    </div>
+</footer>
+<!--/FOOTER-->
+<!--BOTTOM LINE-->
+<div class="bottom-block">
+    <div class="container">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="span6">
+                        <span>上海理工大学</span>
+                    </div>
+                    <div class="span6">
+                        <span class="pull-right visible-desktop"><span class="undercolored"><a href="#">主页</a></span> / <span class="undercolored"><a href="#">关于我们</a></span> / <span class="undercolored"><a href="#">数据来源</a></span> / <span class="undercolored"><a href="#">注册</a></span> / <span class="undercolored"><a href="#">登录</a></span> </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/BOTTOM LINE-->
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+<script type="text/javascript" src="platform.twitter.com/widgets.js"></script>
+<script src="assets/js/jquery.js"></script>
+<script src="assets/js/google-code-prettify/prettify.js"></script>
+<script src="assets/js/bootstrap-transition.js"></script>
+<script src="assets/js/bootstrap-alert.js"></script>
+<script src="assets/js/bootstrap-modal.js"></script>
+<script src="assets/js/bootstrap-dropdown.js"></script>
+<script src="assets/js/bootstrap-scrollspy.js"></script>
+<script src="assets/js/bootstrap-tab.js"></script>
+<script src="assets/js/bootstrap-tooltip.js"></script>
+<script src="assets/js/bootstrap-popover.js"></script>
+<script src="assets/js/bootstrap-button.js"></script>
+<script src="assets/js/bootstrap-collapse.js"></script>
+<script src="assets/js/bootstrap-carousel.js"></script>
+<script src="assets/js/bootstrap-typeahead.js"></script>
+<script src="assets/js/jquery.easing.1.3.js"></script>
+<script src="assets/js/jquery.waitforimages.js"></script>
+<script src="assets/js/jquery.slabtext.min.js"></script>
+<script src="assets/js/jquery.flexslider-min.js"></script>
+<script src="assets/js/superfish-menu/superfish.js"></script>
+<script src="assets/js/plugin.js"></script>
+<script src="assets/js/jquery.prettyPhoto.js"></script>
+<script src="assets/js/twitter.js"></script>
+<script src="http//maps.google.com/maps/api/js?sensor=false"></script>
+<script src="assets/js/jquery.gmap.min.js"></script>
+<script src="assets/js/jquery.preloader.js"></script>
+<script src="assets/js/jquery.isotope.min.js"></script>
+<script src="assets/js/custom.js"></script>
+<script type="text/javascript" src="assets/js/contact.js"></script>
+<!--[if IE]>
+<script type="text/javascript">
+    runFancy = false;
+</script>
+<![endif]-->
+<script type="text/javascript">
+    if (runFancy) {
+        jQuery.noConflict()(function($){
+            $(".view").preloader();
+            $(".flexslider").preloader();
+        });
+    }
+</script>
+
+<div style="display:none"><script src='http//v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+</body>
+</html>

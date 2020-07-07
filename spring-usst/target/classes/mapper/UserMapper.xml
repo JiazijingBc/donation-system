@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiazj.mapper.UserMapper">
+    <select id="allUser" resultType="User">
+        select * from jiazijing.t_user
+    </select>
+
+    <select id="checkUserPaymentDao" resultType="User">
+        select * from jiazijing.t_user where uname = #{uname} and paymentpwd = #{paymentpwd}
+    </select>
+
+    <insert id="userRegDao" parameterType="User">
+        insert into jiazijing.t_user (uname,pwd,paymentpwd) values (#{uname},#{pwd},#{paymentpwd})
+    </insert>
+
+    <update id="userDonateDao" parameterType="User">
+       update jiazijing.t_user set donation=#{donation} where uid=#{uid};
+    </update>
+
+    <select id="allDonation" resultType="User">
+        select * from jiazijing.t_user where  trim(donation)!='';
+    </select>
+
+    <select id="queryUserByName" resultType="User">
+        select * from jiazijing.t_user where uname = #{uname}
+    </select>
+
+    <select id="account" resultType="int">
+        select sum(donation) from jiazijing.t_user
+    </select>
+</mapper>

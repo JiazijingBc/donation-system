@@ -1,0 +1,10 @@
+com\jiazj\config\MyMvcConfig.class
+com\jiazj\interceptor\LoginInterceptor.class
+com\jiazj\config\ShiroConfig.class
+com\jiazj\controller\MyController.class
+com\jiazj\service\UserService.class
+com\jiazj\mapper\UserMapper.class
+com\jiazj\service\UserServiceImpl.class
+com\jiazj\config\UserRealm.class
+com\jiazj\pojo\User.class
+com\jiazj\SpringbootUsstApplication.class
